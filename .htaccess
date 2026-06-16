@@ -1,0 +1,13 @@
+# Enable Rewrite Engine
+RewriteEngine On
+RewriteBase /
+
+# Force trailing slash on directory requests if the directory exists
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteCond %{REQUEST_URI} !(.*)/$
+RewriteRule ^(.*)$ /$1/ [L,R=301]
+
+# Serve index.html for directory requests (e.g. /contact-us -> /contact-us/index.html)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
+RewriteRule ^(.*)/?$ /$1/index.html [L]
